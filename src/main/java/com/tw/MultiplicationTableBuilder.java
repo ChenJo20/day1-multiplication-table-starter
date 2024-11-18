@@ -6,8 +6,8 @@ public class MultiplicationTableBuilder {
         MultiplicationTableBuilder builder = new MultiplicationTableBuilder();
         int start = 1001;
         int end = 4;
-        boolean isStartNoGreaterThanEnd = builder.isStartNoGreaterThanEnd(start, end);
-        boolean isInputInRange = isInputInRange(start, end);
+        boolean isStartNoGreaterThanEnd = isStartNoGreaterThanEnd(start, end);
+        boolean isInputInRange = isInputInRange(start) && isInputInRange(end);
         System.out.println(isInputInRange);
 
 //        System.out.println(isStartNoGreaterThanEnd);
@@ -16,8 +16,8 @@ public class MultiplicationTableBuilder {
 //        System.out.println(multiplicationTable);
     }
 
-    public static boolean isInputInRange(int start, int end) {
-        return (start >= 1 && start <= 1000) && (end >= 1 && end <= 1000);
+    public static boolean isInputInRange(int number) {
+        return number >= 1 && number <= 1000;
     }
 
     public String build(int start, int end) {
