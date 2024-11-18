@@ -9,16 +9,18 @@ public class MultiplicationTableBuilder {
     public static void main(String[] args) {
         MultiplicationTableBuilder builder = new MultiplicationTableBuilder();
         int start = 2;
-        int end = 4;
-        boolean isStartNoGreaterThanEnd = isStartNoGreaterThanEnd(start, end);
-        boolean isInputInRange = isInputInRange(start) && isInputInRange(end);
-        String expression = generateMultiplicationExpression(1, 2);
-        String tableLine = generateTableLine(2, 4);
-        System.out.println(tableLine);
-//        System.out.println(isInputInRange);
-//        System.out.println(isStartNoGreaterThanEnd);
-//        String multiplicationTable = builder.build(start, end);
-//        System.out.println(multiplicationTable);
+        int end = 10;
+
+        String multiplicationTable = generateMultiplicationTable(start, end);
+        System.out.println(multiplicationTable);
+    }
+
+    private static String generateMultiplicationTable(int start, int end) {
+        List<String> tableLines = new ArrayList<>();
+        IntStream.range(start, end + 1).forEach(rightNumber ->
+                tableLines.add(generateTableLine(start, rightNumber))
+        );
+        return String.join(System.lineSeparator(), tableLines);
     }
 
     public static String generateMultiplicationExpression(int leftNumber, int rightNumber) {
@@ -37,7 +39,12 @@ public class MultiplicationTableBuilder {
     }
 
     public String build(int start, int end) {
-        return "";
+        boolean isStartNoGreaterThanEnd = isStartNoGreaterThanEnd(start, end);
+        boolean isInputInRange = isInputInRange(start) && isInputInRange(end);
+        if (!isInputInRange || !isStartNoGreaterThanEnd) {
+            return null;
+        }
+        return generateMultiplicationTable(start, end) + System.lineSeparator();
     }
 
     public static boolean isStartNoGreaterThanEnd(int start, int end) {
