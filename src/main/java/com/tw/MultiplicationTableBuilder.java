@@ -28,7 +28,7 @@ public class MultiplicationTableBuilder {
     public static String generateTableLine(int lineStart, int lineEnd) {
         List<String> expressions = new ArrayList<>();
         IntStream.range(lineStart, lineEnd + 1)
-                .forEach(i -> expressions.add(generateMultiplicationExpression(lineStart, i)));
+                .forEach(leftNumber -> expressions.add(generateMultiplicationExpression(leftNumber, lineEnd)));
         return String.join(" ", expressions);
     }
 
