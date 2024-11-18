@@ -4,16 +4,20 @@ public class MultiplicationTableBuilder {
 
     public static void main(String[] args) {
         MultiplicationTableBuilder builder = new MultiplicationTableBuilder();
-        int start = 1001;
+        int start = 2;
         int end = 4;
         boolean isStartNoGreaterThanEnd = isStartNoGreaterThanEnd(start, end);
         boolean isInputInRange = isInputInRange(start) && isInputInRange(end);
-        System.out.println(isInputInRange);
-
+        String expression = generateMultiplicationExpression(1, 2);
+        System.out.println(expression);
+//        System.out.println(isInputInRange);
 //        System.out.println(isStartNoGreaterThanEnd);
 //        String multiplicationTable = builder.build(start, end);
-//
 //        System.out.println(multiplicationTable);
+    }
+
+    public static String generateMultiplicationExpression(int leftNumber, int rightNumber) {
+        return leftNumber + "*" + rightNumber + "=" + leftNumber * rightNumber;
     }
 
     public static boolean isInputInRange(int number) {
