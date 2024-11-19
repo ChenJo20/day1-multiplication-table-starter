@@ -1,10 +1,13 @@
 package com.tw;
 
-import java.util.ArrayList;
-import java.util.List;
+import java.util.stream.Collectors;
 import java.util.stream.IntStream;
 
 public class MultiplicationTableBuilder {
+
+    public static int MIN_RANGE = 1;
+    public static int MAX_RANGE = 1000;
+    public static String BLACK_SPACE = " ";
 
     public static void main(String[] args) {
         MultiplicationTableBuilder builder = new MultiplicationTableBuilder();
@@ -16,26 +19,23 @@ public class MultiplicationTableBuilder {
     }
 
     private static String generateMultiplicationTable(int start, int end) {
-        List<String> tableLines = new ArrayList<>();
-        IntStream.range(start, end + 1).forEach(rightNumber ->
-                tableLines.add(generateTableLine(start, rightNumber))
-        );
-        return String.join(System.lineSeparator(), tableLines);
+        return String.format("%s%s", IntStream.rangeClosed(start, end)
+                .mapToObj(rightNumber -> generateTableLine(start, rightNumber))
+                .collect(Collectors.joining(System.lineSeparator())), System.lineSeparator());
     }
 
     public static String generateMultiplicationExpression(int leftNumber, int rightNumber) {
-        return leftNumber + "*" + rightNumber + "=" + leftNumber * rightNumber;
+        return String.format("%s*%s=%s", leftNumber, rightNumber, leftNumber * rightNumber);
     }
 
     public static String generateTableLine(int lineStart, int lineEnd) {
-        List<String> expressions = new ArrayList<>();
-        IntStream.range(lineStart, lineEnd + 1)
-                .forEach(leftNumber -> expressions.add(generateMultiplicationExpression(leftNumber, lineEnd)));
-        return String.join(" ", expressions);
+        return IntStream.rangeClosed(lineStart, lineEnd)
+                .mapToObj(leftNumber -> generateMultiplicationExpression(leftNumber, lineEnd))
+                .collect(Collectors.joining(BLACK_SPACE));
     }
 
     public static boolean isInputInRange(int number) {
-        return number >= 1 && number <= 1000;
+        return number >= MIN_RANGE && number <= MAX_RANGE;
     }
 
     public String build(int start, int end) {
@@ -44,7 +44,7 @@ public class MultiplicationTableBuilder {
         if (!isInputInRange || !isStartNoGreaterThanEnd) {
             return null;
         }
-        return generateMultiplicationTable(start, end) + System.lineSeparator();
+        return generateMultiplicationTable(start, end);
     }
 
     public static boolean isStartNoGreaterThanEnd(int start, int end) {
